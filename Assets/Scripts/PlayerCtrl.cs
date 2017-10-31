@@ -34,6 +34,8 @@ public class PlayerCtrl : MonoBehaviour {
 	public bool isGrounded;
 	public LayerMask whatIsGround;
 
+	bool canDoubleJump = false;
+	public float delayForDoubleJump = 0.2f;
 
 
 	// Use this for initialization
@@ -91,7 +93,19 @@ public class PlayerCtrl : MonoBehaviour {
 		isJumping = true;
 		rb.AddForce (new Vector2(0f, JumpSpeed));
 		anim.SetInteger("State", 1);
+	Invoke("EnableDoubleJump", delayForDoubleJump);
 	}
+	 
+	 if(canDoubleJump && !isGrounded) {
+		rb.velocity = Vector2.zero;
+		 rb.AddForce (new Vector2(0f, JumpSpeed));
+		anim.SetInteger("State", 1);
+		canDoubleJump = false;
+
+	 }
+		}
+		void EnableDoubleJump() {
+			canDoubleJump = true;
 		}
 
 	void StopMovingHorizontal() {
