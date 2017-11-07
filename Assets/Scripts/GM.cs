@@ -19,10 +19,7 @@ public float TimeToRespawn = 2f;
 		 if(instance == null) {
 			 instance = this;
 		 }
-		 else if (instance != this ) {
-			 Destroy(gameObject);
-		 }
-		 DontDestroyOnLoad(gameObject);
+		
 	 }
 
  	void Start () {
