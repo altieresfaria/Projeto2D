@@ -10,7 +10,10 @@ public float yMinLive = -10f;
 public Transform spawnPoint;
 public GameObject playerPrefab;
 
+
 PlayerCtrl player;
+
+public float TimeToRespawn = 2f;
 
  	void Awake(){
 		 if(instance == null) {
@@ -30,9 +33,22 @@ PlayerCtrl player;
 	}
 	
 	void Update () {
+		if(player == null) {
+			GameObject obj = GameObject.FindGameObjectWithTag("Player");
+			if (obj != null) {
+				player = obj.GetComponent<PlayerCtrl>();
+			}
+		}
 		
 	}
 	public void RespawnPlayer() {
 	 Instantiate (playerPrefab, spawnPoint.position, spawnPoint.rotation);
+	}
+	public void KillPlayer(){
+		if(player != null) {
+			Destroy(player.gameObject);
+			Invoke("RespawnPlayer", TimeToRespawn);
+		}
+
 	}
 }
